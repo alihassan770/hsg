@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="res_partner_form_view_inherit">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="customer_rank"/>
+                </xpath>
+
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="tax_reg" class="oe_inline" widget='radio'/>
+                    <field name="cnic" placeholder="xxxxx-xxxxxxx-x"/>
+                </xpath>
+                <xpath expr="//notebook/page[@name='sales_purchases']/group/group[@name='misc']" position="after">
+                    <group name="hs_discounts" string="Discounts">
+                        <field name="hs_discount" string="Discount"/>
+                        <field name="hs_cash_discount" string="Cash Discount"/>
+                        <field name="hs_other_discount" string="Other Discount"/>
+                    </group>
+                </xpath>
+                <xpath expr="//page[@name='internal_notes']" position="after">
+                    <page name="extra_info" string="Extra Info">
+                        <group>
+                            <group>
+                                <field name="area_sale_manager"/>
+                                <field name="region_sale_manager"/>
+                                <field name="national_sale_manager"/>
+                                <field name="sale_coordinator"/>
+                            </group>
+                            <group>
+                                <field name="market_id"/>
+                                <field name="region_id"/>
+                                <field name="distributor_id"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+

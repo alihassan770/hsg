@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-inherit="account.TaxGroupComponent" t-inherit-mode="extension" t-name="opty.TaxGroupComponent">
+        <xpath expr="tr" position="replace">
+            <t t-if="this.amountGstTax != 0">
+
+            </t>
+            <t t-else="">
+                <tr>
+                    <td class="o_td_label">
+                        <label class="o_form_label o_tax_total_label" t-out="props.taxGroup.tax_group_name"/>
+                    </td>
+
+                    <td class="o_tax_group">
+                        <t t-if="!props.isReadonly">
+                            <t t-if="['edit', 'disable'].includes(state.value)">
+                                <span class="o_tax_group_edit_input">
+                                    <input
+                                            type="text"
+                                            t-ref="taxValueInput"
+                                            class="o_field_float
+                                o_field_number o_input"
+                                            t-att-disabled="state.value === 'disable'"
+                                            t-on-change.prevent="_onChangeTaxValue"
+                                            t-on-blur="_onChangeTaxValue"/>
+                                </span>
+                            </t>
+                            <t t-else="">
+                                <span class="o_tax_group_edit" t-on-click.prevent="() => this.setState('edit')">
+                                    <span class="o_tax_group_amount_value o_list_monetary">
+                                        <i class="fa fa-pencil me-2"/>
+                                        <t t-out="props.taxGroup.formatted_tax_group_amount"/>
+                                    </span>
+                                </span>
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <span class="o_tax_group_amount_value o_list_monetary">
+                                <t t-out="props.taxGroup.formatted_tax_group_amount" style="white-space: nowrap;"/>
+                            </span>
+                        </t>
+                    </td>
+                </tr>
+
+            </t>
+
+        </xpath>
+    </t>
+
+    <t t-inherit="account.TaxTotalsField" t-inherit-mode="extension" t-name="opty.TaxTotalsField">
+        <xpath expr="//tbody/t[@t-foreach='totals.subtotals']" position="before">
+            <!--            <span t-if="props.record.data.discount_move_amount">-->
+
+            <!--            </span>-->
+            <tr t-if="props.record.data.retail_tax > 0">
+                <td class="o_td_label">
+                    <label class="o_form_label o_tax_total_label">Tax</label>
+                </td>
+                <td>
+                    <span t-out="amountGstTax"/>
+                </td>
+            </tr>
+            <tr t-if="props.record.data.discount_move_amount and props.record.data.discount_move_amount != 0">
+                <td class="o_td_label">
+                    <label class="o_form_label o_tax_total_label">Discount Amount</label>
+                </td>
+                <td>
+                    <span t-out="discountAmountMove" style="font-weight: bold;"/>
+                </td>
+            </tr>
+            <!--            nnfkjrnf-->
+            <span t-if="props.record.data.discount_amount">
+
+            </span>
+            <tr t-if="props.record.data.discount_amount and props.record.data.discount_amount != 0">
+                <td class="o_td_label">
+                    <label class="o_form_label o_tax_total_label">Amount Before Discount</label>
+                </td>
+                <td>
+                    <span t-out="amountUndiscountedFormatted" style="font-weight: bold;"/>
+                </td>
+            </tr>
+            <tr t-if="props.record.data.discount_amount and props.record.data.discount_amount != 0">
+                <td class="o_td_label">
+                    <label class="o_form_label o_tax_total_label">Discount Amount</label>
+                </td>
+                <td>
+                    <span t-out="discountAmountFormatted" style="font-weight: bold;"/>
+                </td>
+            </tr>
+        </xpath>
+    </t>
+
+</templates>

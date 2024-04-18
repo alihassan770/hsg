@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hs_market,access.hs.market,model_hs_market,base.group_user,1,1,1,1
+access_hs_region,access.hs.region,model_hs_region,base.group_user,1,1,1,1
+access_hs_distributor,access.hs.distributor,model_hs_distributor,base.group_user,1,1,1,1
+
